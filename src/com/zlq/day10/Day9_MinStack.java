@@ -35,7 +35,6 @@ public class Day9_MinStack {
 class Stack {
     private Integer[] datas;
     private int size;
-    private int capacity;
 
     public Stack() {
         datas = new Integer[10];
