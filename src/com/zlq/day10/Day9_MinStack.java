@@ -12,7 +12,7 @@ package com.zlq.day10;
 设计⼀个⽀持 push ，pop ，top 操作，并能在常数时间内检索到最⼩元素的栈。
 push(x) —— 将元素 x 推⼊栈中。
 pop() —— 删除栈顶的元素。
-top() —— 获取栈顶元素。
+top() ———— 获取栈顶元素。
 getMin() —— 检索栈中的最⼩元素。
 输⼊：
 ["MinStack","push","push","push","getMin","pop","top","getMin"]
@@ -43,7 +43,7 @@ class Stack {
     }
 
     private void push(int val) {
-        if (size == capacity) {
+        if (capacity == size) {
             grow(capacity * 2);
         }
         datas[size++] = val;
