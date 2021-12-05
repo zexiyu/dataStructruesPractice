@@ -27,7 +27,7 @@ public class Day32_BinarySearch {
     public static void main(String[] args) {
         int[] nums = {-1, 0, 3, 5, 9, 12};
         int target = 3;
-        System.out.println(solution1(nums, target));
+        System.out.println(solution(nums, target));
     }
 
     public static int solution(int[] nums, int target) {
@@ -46,19 +46,6 @@ public class Day32_BinarySearch {
         return -1;
     }
 
-    public static int solution1(int[] nums, int target) {
-        int length = nums.length;
-        int l = 0, r = length - 1;
-        if (target < nums[l] || target > nums[r]) return -1;
-        while (l <= r) {
-            int midIndex = l + (r - l) / 2;
-            int midNum = nums[midIndex];
-            if (target > midNum) l = midIndex + 1;
-            else if (target < midIndex) r = midIndex - 1;
-            else return midIndex;
-        }
-        return -1;
-    }
 
     public static int search(int[] a, int key, int fromIndex, int toIndex) {
         if (key < a[fromIndex] || key > a[toIndex] || fromIndex > toIndex)

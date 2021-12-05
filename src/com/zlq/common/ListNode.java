@@ -38,4 +38,13 @@ public class ListNode {
                 "value=" + value +
                 '}';
     }
+
+
+    public static void print(ListNode head) {
+        while (head != null) {
+            if (head.next == null) System.out.println(head.value);
+            else System.out.print(head.value + " -> ");
+            head = head.next;
+        }
+    }
 }
