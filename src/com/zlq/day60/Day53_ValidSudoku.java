@@ -13,24 +13,24 @@ import java.util.Set;
  */
 public class Day53_ValidSudoku {
     public static void main(String[] args) {
-//        char[][] board = {{'5', '3', '.', '.', '7', '.', '.', '.', '.'}
-//                , {'6', '.', '.', '1', '9', '5', '.', '.', '.'}
-//                , {'.', '9', '8', '.', '.', '.', '.', '6', '.'}
-//                , {'8', '.', '.', '.', '6', '.', '.', '.', '3'}
-//                , {'4', '.', '.', '8', '.', '3', '.', '.', '1'}
-//                , {'7', '.', '.', '.', '2', '.', '.', '.', '6'}
-//                , {'.', '6', '.', '.', '.', '.', '2', '8', '.'}
-//                , {'.', '.', '.', '4', '1', '9', '.', '.', '5'}
-//                , {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
-        char[][] board = {{'.', '.', '.', '.', '5', '.', '.', '1', '.'},
-                {'.', '4', '.', '3', '.', '.', '.', '.', '.'},
-                {'.', '.', '.', '.', '.', '3', '.', '.', '1'},
-                {'8', '.', '.', '.', '.', '.', '.', '2', '.'},
-                {'.', '.', '2', '.', '7', '.', '.', '.', '.'},
-                {'.', '1', '5', '.', '.', '.', '.', '.', '.'},
-                {'.', '.', '.', '.', '.', '2', '.', '.', '.'},
-                {'.', '2', '.', '9', '.', '.', '.', '.', '.'},
-                {'.', '.', '4', '.', '.', '.', '.', '.', '.'}};
+        char[][] board = {{'5', '3', '.', '.', '7', '.', '.', '.', '.'}
+                , {'6', '.', '.', '1', '9', '5', '.', '.', '.'}
+                , {'.', '9', '8', '.', '.', '.', '.', '6', '.'}
+                , {'8', '.', '.', '.', '6', '.', '.', '.', '3'}
+                , {'4', '.', '.', '8', '.', '3', '.', '.', '1'}
+                , {'7', '.', '.', '.', '2', '.', '.', '.', '6'}
+                , {'.', '9', '.', '.', '.', '.', '2', '8', '.'}
+                , {'.', '.', '.', '4', '1', '9', '.', '.', '5'}
+                , {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
+//        char[][] board = {{'.', '.', '.', '.', '5', '.', '.', '1', '.'},
+//                          {'.', '4', '.', '3', '.', '.', '.', '.', '.'},
+//                          {'.', '.', '.', '.', '.', '3', '.', '.', '1'},
+//                          {'8', '.', '.', '.', '.', '.', '.', '2', '.'},
+//                          {'.', '.', '2', '.', '7', '.', '.', '.', '.'},
+//                          {'.', '1', '5', '.', '.', '.', '.', '.', '.'},
+//                          {'.', '.', '.', '.', '.', '2', '.', '.', '.'},
+//                          {'.', '2', '.', '9', '.', '.', '.', '.', '.'},
+//                          {'.', '.', '4', '.', '.', '.', '.', '.', '.'}};
         System.out.println(isValidSudoku(board));
 /*
 
@@ -63,7 +63,10 @@ public class Day53_ValidSudoku {
             if (!repetitiveInColumn) return false;
         }
         // 判断每个九宫格是否有重复的数字
-//        boolean repetitiveInSmallSudoku = isRepetitiveInSmallSudoku(start, start + 9, board);
+        for (int i = 1; i <= 9; i++) {
+            boolean repetitiveInSmallSudoku = isRepetitiveInSmallSudoku(i, board);
+            if (!repetitiveInSmallSudoku) return false;
+        }
         return true;
     }
 
@@ -77,8 +80,9 @@ public class Day53_ValidSudoku {
     private static boolean isRepetitiveInRow(int rowLength, char[] boardRow) {
         Set<Character> set = new HashSet<>();
         for (int i = 0; i < 9; i++) {
-            if (set.contains(boardRow[i]) && boardRow[i] != '.') return false;
-            set.add(boardRow[i]);
+            char c = boardRow[i];
+            if (set.contains(c) && c != '.') return false;
+            set.add(c);
         }
         return true;
     }
@@ -93,8 +97,10 @@ public class Day53_ValidSudoku {
     private static boolean isRepetitiveInColumn(int columnNum, char[][] board) {
         Set<Character> set = new HashSet<>();
         for (int i = 0; i < 9; i++) {
-            if (set.contains(board[columnNum][i]) && board[columnNum][i] != '.') return false;
-            set.add(board[columnNum][i]);
+            char c = board[i][columnNum];
+
+            if (set.contains(c)) return false;
+            if (c != '.') set.add(c);
         }
         return true;
     }
@@ -102,19 +108,34 @@ public class Day53_ValidSudoku {
     /**
      * 判断每一个小数独上是否有重复数字
      *
-     * @param start
-     * @param
-     * @param board
-     * @return
+     * @param k 第几个数独
      */
-    private static boolean isRepetitiveInSmallSudoku(int start, char[][] board) {
-//        Set<Character> set = new HashSet<>();
-//        for (int i = start; i < end; i++) {
-//            // 第20 -> index为19 -> 二维坐标为：[1][2]
-//            if (set.contains(board[i % 9][i / 9]) && board[i % 9][i / 9] != '.') return false;
-//            set.add(board[i % 9][i / 9]);
-//        }
+    private static boolean isRepetitiveInSmallSudoku(int k, char[][] board) {
+        Set<Character> set = new HashSet<>();
+        int xStart = (k % 3) > 0 ? (k % 3) * 3 - 3 : 6;
+        int xEnd = xStart + 2;
+        int yStart = (k % 3) > 0 ? ((k / 3) + 1) * 3 - 3 : (k / 3) * 3 - 3;
+        int yEnd = yStart + 2;
+        for (int i = yStart; i <= yEnd; i++) {
+            for (int j = xStart; j <= xEnd; j++) {
+                char c = board[i][j];
+                if (set.contains(c)) return false;
+                if (c != '.') set.add(c);
+            }
+        }
+
         return true;
     }
 
+    /*
+    [[".",".","4",".",".",".","6","3","."],
+     [".",".",".",".",".",".",".",".","."],
+     ["5",".",".",".",".",".",".","9","."],
+     [".",".",".","5","6",".",".",".","."],
+     ["4",".","3",".",".",".",".",".","1"],
+     [".",".",".","7",".",".",".",".","."],
+     [".",".",".","5",".",".",".",".","."],
+     [".",".",".",".",".",".",".",".","."],
+     [".",".",".",".",".",".",".",".","."]]
+     */
 }

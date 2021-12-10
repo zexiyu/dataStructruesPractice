@@ -11,24 +11,27 @@ package com.zlq.day70;
 public class Day66_SuperPow {
     public static void main(String[] args) {
         int[] b = {1, 1};
-        System.out.println(superPow(2, b));
+        Day66_SuperPow pow = new Day66_SuperPow();
+        System.out.println(pow.superPow(2, b));
     }
 
-    public static int superPow(int a, int[] b) {
-        int res = 1, up = a % 1337;
-        for (int i = b.length - 1; i >= 0; i--) {
-            int t = 1;
-            for (int j = 1; j <= 10; j++) {
-                t = (t * up) % 1337;
-                if (j == b[i]) {
-                    res = (res * t) % 1337;
-                }
-            }
-            up = t;
-        }
-        return res;
+    int MOD = 1337;
+
+    public int superPow(int a, int[] b) {
+        return dfs(a, b, b.length - 1);
     }
 
+    int dfs(int a, int[] b, int u) {
+        if (u == -1) return 1;
+        return pow(dfs(a, b, u - 1), 10) * pow(a, b[u]) % MOD;
+    }
+
+    int pow(int a, int b) {
+        int ans = 1;
+        a %= MOD;
+        while (b-- > 0) ans = ans * a % MOD;
+        return ans;
+    }
 
 
 }
