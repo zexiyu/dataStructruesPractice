@@ -27,13 +27,45 @@ import java.util.Arrays;
 解释：输入数组表示数字 4321。
 示例 3：
 
-输入：digits = [4,3,2,2]
+输入：digits = [0]
 输出：[1]。
  */
 public class Day24_AddOne {
     public static void main(String[] args) {
-        int[] arr = {9,9,9,9};
-        System.out.println(Arrays.toString(plusOne2(arr)));
+        int[] arr = {9, 9, 9, 9};
+        System.out.println(Arrays.toString(plusOne3(arr)));
+        System.out.println(Integer.MAX_VALUE);
+    }
+
+
+
+    /*
+   [1,9,9,9]
+    */
+    public static int[] plusOne3(int[] digits) {
+        int carry;
+        int length = digits.length;
+        int lastNum = digits[length - 1];
+        if (lastNum < 9) {
+            digits[length - 1] += 1;
+        } else {
+            digits[length - 1] = 0;
+            carry = 1;
+            for (int i = digits.length - 2; i >= 0; i--) {
+                if (digits[i] < 9){
+                    digits[i]+=carry;
+                    break;
+                }else {
+                    digits[i] = 0;
+                    carry = 1;
+                }
+            }
+        }
+        if (digits[0] == 0){
+            digits = new int[length + 1];
+            digits[0] = 1;
+        }
+        return digits;
     }
 
     public static int[] plusOne(int[] digits) {
@@ -47,15 +79,15 @@ public class Day24_AddOne {
             carry = 1;
             for (int i = length - 1; i >= 0; i--) {
                 digits[i] = digits[i] + carry;
-                if (digits[i] >= 10){
+                if (digits[i] >= 10) {
                     digits[i] = 0;
                     carry = 1;
                     // 考虑特殊情况，最左边也被进位，数组扩容长度加一，最左边为1
-                    if (digits[0] == 0){
-                        digits = new int[length+ 1];
+                    if (digits[0] == 0) {
+                        digits = new int[length + 1];
                         digits[0] = 1;
                     }
-                }else {
+                } else {
                     carry = 0;
                 }
             }
@@ -64,8 +96,8 @@ public class Day24_AddOne {
     }
 
     public static int[] plusOne2(int[] digits) {
-        for(int i = digits.length - 1; i >= 0; i--){
-            if(digits[i] != 9){
+        for (int i = digits.length - 1; i >= 0; i--) {
+            if (digits[i] != 9) {
                 digits[i]++;
                 return digits;
             }
@@ -75,4 +107,6 @@ public class Day24_AddOne {
         arr[0] = 1;
         return arr;
     }
+
+
 }

@@ -32,8 +32,8 @@ import java.util.Map;
 public class Day6_ClimbingStairs {
     public static void main(String[] args) {
         int stairs = 45;
-        System.out.println(climbingStairs1(stairs));
-//        System.out.println(recursivePractice4(2, 4));
+//        System.out.println(climbingStairs1(stairs));
+        System.out.println(recursivePractice2(2, 4));
     }
 
     //求x的n次方

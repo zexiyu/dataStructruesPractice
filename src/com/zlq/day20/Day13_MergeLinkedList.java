@@ -1,5 +1,7 @@
 package com.zlq.day20;
 
+import java.util.LinkedList;
+
 /**
  * @ProjectName:dataStructruesPractice
  * @Package:com.zlq.day20

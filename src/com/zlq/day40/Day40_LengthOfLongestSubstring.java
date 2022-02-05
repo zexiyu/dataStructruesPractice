@@ -1,5 +1,8 @@
 package com.zlq.day40;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @ProjectName:dataStructruesPractice
  * @Package:com.zlq.day40
@@ -45,7 +48,7 @@ public class Day40_LengthOfLongestSubstring {
         if (s.length() == 0 || s == "") return 0;
         if (s.length() == 1) return 1;
         int l = 0, r = 0;    // 左右指针,初始都为0
-        int  largestLength = 0;
+        int largestLength = 0;
         while (r < s.length() - 1) {
             r++;
             // 如果窗口内包含重复数 将左指针移到最左边重复数的右边一个位置上
@@ -54,9 +57,32 @@ public class Day40_LengthOfLongestSubstring {
                     l = i + 1;
                 }
             }
-             largestLength = Math.max( largestLength, r - l + 1);
+            largestLength = Math.max(largestLength, r - l + 1);
         }
-        return  largestLength;
+        return largestLength;
     }
+
+    public static int lengthOfLongestSubstring2(String s) {
+        int length = s.length();
+        int maxLength = 0;
+        for (int i = 0; i < length; i++) {
+            Set<Character> set = new HashSet<>();
+            for (int j = i; j < length; j++) {
+                char c = s.charAt(j);
+                if (!set.contains(c)) {
+                    set.add(c);
+                    if (j == length - 1) {
+                        maxLength = Math.max(j - i + 1, maxLength);
+                    }
+                } else {
+                    maxLength = Math.max(j - i, maxLength);
+                    break;
+                }
+            }
+        }
+        return maxLength;
+    }
+
+
 }
 

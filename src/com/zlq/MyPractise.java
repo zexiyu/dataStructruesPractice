@@ -85,4 +85,17 @@ class Article {
                 ", articleTitle='" + articleTitle + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Article article = (Article) o;
+        return Objects.equals(articleId, article.articleId) && Objects.equals(articleTitle, article.articleTitle);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(articleId, articleTitle);
+    }
 }
