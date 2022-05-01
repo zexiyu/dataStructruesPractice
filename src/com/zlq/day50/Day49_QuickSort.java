@@ -35,7 +35,6 @@ public class Day49_QuickSort {
         int mid = partition(nums, leftBound, rightBound);
         quickSort(nums, 0, mid - 1);
         quickSort(nums, mid + 1, rightBound);
-
     }
 
     private static int partition(int[] nums, int leftBound, int rightBound) {
@@ -52,9 +51,9 @@ public class Day49_QuickSort {
         return left;
     }
 
-    public static void swap(int[] arr, int  i, int index2) {
-        int temp = arr[ i];
-        arr[ i] = arr[index2];
+    public static void swap(int[] arr, int i, int index2) {
+        int temp = arr[i];
+        arr[i] = arr[index2];
         arr[index2] = temp;
     }
 }
