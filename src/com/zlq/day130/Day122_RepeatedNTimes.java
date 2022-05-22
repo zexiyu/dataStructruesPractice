@@ -37,16 +37,17 @@ nums 中恰有一个元素重复 n 次
  */
 public class Day122_RepeatedNTimes {
     public static void main(String[] args) {
-        int[] nums = {2,1,2,5,3,2};
+        int[] nums = {2, 1, 2, 5, 3, 2};
         repeatedNTimes(nums);
     }
+
     public static int repeatedNTimes(int[] nums) {
         Set<Integer> set = new HashSet<>();
         for (int i = 0; i < nums.length; i++) {
             int num = nums[i];
-            if (!set.contains(num)){
+            if (!set.contains(num)) {
                 set.add(num);
-            }else {
+            } else {
                 return num;
             }
         }

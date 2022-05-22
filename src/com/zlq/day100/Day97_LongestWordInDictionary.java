@@ -29,7 +29,7 @@ import java.util.*;
  */
 public class Day97_LongestWordInDictionary {
     public static void main(String[] args) {
-        String[] words = {"t","ti","tig","tige","tiger","e","en","eng","engl","engli","englis","english","h","hi","his","hist","histo","histor","history"};
+        String[] words = {"t", "ti", "tig", "tige", "tiger", "e", "en", "eng", "engl", "engli", "englis", "english", "h", "hi", "his", "hist", "histo", "histor", "history"};
         System.out.println(longestWord(words));
 //        System.out.println(isSmaller("fcmz", "yodn"));
 
@@ -61,7 +61,7 @@ public class Day97_LongestWordInDictionary {
                     longestWord = curLongestWord;
             }
 
-            if (!iterator.hasNext()){
+            if (!iterator.hasNext()) {
                 if (curLongestWord.length() > longestWord.length() || curLongestWord.length() == longestWord.length() && curLongestWord.compareTo(longestWord) > 0)
                     longestWord = curLongestWord;
             }
